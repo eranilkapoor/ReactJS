@@ -107,7 +107,7 @@
         - Finding Logical Errors by using Dev Tools Sourcemaps
         - Working with the React Developer Tools 
         - Using Error Boundaries(React 16+)
-        - Wrap Up 
+        - Wrap Up
     * Overview of Hooks
         - Overview of React Hooks
         - Using built in Hooks  
