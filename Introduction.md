@@ -1,12 +1,12 @@
 # Introduction to React.js
-- [Introduction to React.js] (#Introduction to React.js)
-- Single Page Application (SPA)
-- Understanding SPA features
-- Node Package Manager (NPM)
-- Create New App using Create-React-App (CRA)
+- [Introduction to React.js](#Introduction to React.js)
+- [Single Page Application (SPA)](#Single Page Application (SPA))
+- [Understanding SPA features](#Understanding SPA features)
+- [Node Package Manager (NPM)](#Node Package Manager (NPM))
+- [Create New App using Create-React-App (CRA)](#Create New App using Create-React-App (CRA))
 - Understanding Project folder structure
-- [NPX](NPX)
-- Introduction to JSX
-- Transpilling JSX to JavaScript using Babel
-- JSX Restrictions
-- React Fragment
+- [NPX](#NPX)
+- [Introduction to JSX](#Introduction to JSX)
+- [Transpilling JSX to JavaScript using Babel](#Transpilling JSX to JavaScript using Babel)
+- [JSX Restrictions](#JSX Restrictions)
+- [React Fragment](#React Fragment)
