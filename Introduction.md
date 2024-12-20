@@ -12,7 +12,7 @@
 - [React Fragment](#react-fragment)
 
 
-### **Introduction to React.js**
+## **Introduction to React.js**
 
 #### **What is React.js?**
 React.js is a popular open-source JavaScript library developed by Facebook for building user interfaces, particularly single-page applications (SPAs). It focuses on the view layer of an application, allowing developers to create reusable UI components.
