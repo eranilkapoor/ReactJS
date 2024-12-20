@@ -1,7 +1,6 @@
 # React JS
 
 ## Table of Contents :-
-
 - Pre Requisites :-
     * HTML
     * CSS
