@@ -1,6 +1,6 @@
 # React JS
 
-## Table of Contents :-
+## Table Of Contents :-
 - Pre Requisites :-
     * HTML
     * CSS
@@ -122,4 +122,252 @@
         - Reducer
         - Actions 
         - Dispatchers
-        - Integrating React with Redux  
+        - Integrating React with Redux
+    * Working with Redux
+        - Pitfalls of Local State
+        - State management Patterns
+        - Flux Pattern
+        - Mobx vs Redux
+        - Integrating React and Redux
+        - Redux Architecture
+        - Store
+        - Reducers
+        - Actions
+        - Complex actions with Redux
+        - Data Flow
+        - Reducers and State Trees
+        - Combining Reducers
+        - Reducer Patterns
+        - Computing Derived Data
+        - Creating Redux Middleware
+    * Asynchronous Redux
+        - The difficulties of asynchronus Redux
+        - Asynchronous middleware
+        - Redux Thunk
+        - Redux Saga
+        - Redux Thunk vs Redux Saga
+        - Dispatching async actions
+        - Typing async results
+        - Catching results
+        - Handling errors
+    * React Router
+        - Working with React Router
+        - Configure Routing
+        - Working with Links & Creating Nested Routes
+        - Navigating using the React Router
+        - Dynamic Routes
+        - Passing Parameters to Routes
+        - Redirects
+    * Server Side Rendring in React
+        - Understanding Server Side Rendring (SSR)
+        - React SSR frameworks
+        - Use Next.js to Build SSR
+        - Introducing Next.js with React
+        - Add initial component from template
+        - Add data for props
+        - Add Redux store and setup
+        - Add Redux actions
+        - Add Redux reducers
+        - Finalize overall components with Redux
+    * Unit Testing
+        - Unit testing React Applications Using Jest & Enzyme
+    * Full Stack with GraphQL, React & Apollo
+        - Itroducing GraphQL
+        - REST vs GraphQL
+        - Working with GraphQL
+        - GraphQL Schemas
+        - Fetching Data
+        - Working with Apollo Client
+    * Getting Started with React Native
+        - What is React Native?
+        - How React Native Works?
+        - Expo vs React Native CLI
+        - Installation of required softwares
+        - Creating our first App
+        - Running the App on an Android Emulator and iOS Simulator
+    * Diving into the Basics of React Native
+        - React Native Components
+        - Setting Up A New Project
+        - Planning the App
+        - Working with Core Components
+        - Getting Started with Styles
+        - Flexbox & Layouts (Intro)
+        - React Native Flexbox Deep Dive
+        - Inline Styles & StyleSheet Objects
+        - Components, Styles, Layouts
+        - Working with State & Events
+        - Styling List Items
+        - Making it Scrollable with ScrollView!
+        - A Better List: FlatList
+        - Splitting the App Into Components
+        - Passing Data Between Components
+        - Working with Touchable Components
+        - Flexbox Styling
+        - Closing the Modal & Clearing Input
+        - Finishing the Modal Styling
+    * Debugging React Native Apps
+        - What To Debug & How To Debug?
+        - Running the App on a Real Device & Debugging
+        - Handling Error Messages
+        - Understanding Code Flow with console.log()
+        - Using the Remote Debugger & Breakpoints
+        - Working with the Device DevTools Overlay
+        - Debugging the UI & Using React Native Debugger
+    * Components, Styling, Layouts - Building Real Apps
+        - Setup & App Planning
+        - Custom Header Component
+        - Screen Component
+        - Styling a View as a Card Container
+        - Extracting a Card Component
+        - Color Theming with Constants
+        - Configuring & Styling a TextInput
+        - Cleaning User Input & Controlling the Soft Keyboard
+        - Resetting & Confirming User Input
+        - Switching Between Multiple Screens
+        - Installing expo-font
+        - Synthetic Style Cascade
+        - Adding Local Images
+        - Styling Images
+        - Working with Network (Web) Images
+        - Building a Custom Button Component
+        - Adding Icons
+        - Exploring UI Libraries
+        - Styling List Items & Lists
+        - ScrollView & Flexbox
+        - Using FlatList Instead of ScrollView
+    * Responsive & Adaptive User Interfaces and Apps
+        - Finding Improvement Opportunities
+        - Working with More Flexible Styling Rules
+        - Introducing the Dimensions API
+        - Calculating Sizes Dynamically
+        - Problems with Different Device Orientations
+        - Controlling Orientation & Using the KeyboardAvoidingView
+        - Rendering Different Layouts
+        - Updating All Code to Update Dynamically
+        - The Dimensions API & Responsive UIs
+        - Expo's ScreenOrientation API
+        - Working with Platform.select() and Platform in if Checks
+        - The Platform API
+        - Using the SafeAreaView
+    * Navigation with React Navigation
+        - Planning the App
+        - Adding Screens, AppLoading and Fonts
+        - Installing React Navigation
+        - Creating a StackNavigator
+        - Navigating Between Screens
+        - Pushing, Popping & Replacing
+        - Configuring the Header with Navigation Options
+        - Default Navigation Options & Config
+        - Navigation Params & Configuration
+        - Grid Styling & Some Refactoring
+        - Adding Header Buttons
+        - Fixing the Shadows
+        - Adding Tabs-based Navigation
+        - Setting Icons and Configuring Tabs
+        - Adding MaterialBottomTabs
+        - Adding a Favorites Stack
+        - Configuring the Drawer
+        - Adding a DefaultText Component
+        - Passing Data Between Component & Navigation Options
+    * State Management and Redux
+        - What is State & What is Redux?
+        - Redux & Store Setup
+        - Selecting State Slices
+        - Redux Data & Navigation Options
+        - Dispatching Actions & Reducer Logic
+        - Switching the Favorites Icon
+        - Rendering a Fallback Text
+        - Adding Filtering Logic
+        - Dispatching Filter Actions
+        - Debugging Redux in React Native Apps
+    * Handling User Input
+        - Configuring TextInputs
+        - Adding Basic Validation
+        - Getting Started with useReducer()
+        - Finishing the Merged Form & Input Management
+        - Moving Input Logic Into A Separate Component
+        - Connecting Input Component & Form
+        - Tweaking Styles & Handling the Soft Keyboard
+    * HTTP Requests and Adding a Web Server + Database
+        - Setup & How To Send Requests
+        - Installing Redux Thunk
+        - Storing Products on a Server
+        - Fetching Products from the Server
+        - Displaying a Loading Spinner & Handling Errors
+        - Setting Up a Navigation Listener
+        - Updating & Deleting Products
+        - Handling Additional Errors
+        - Storing Orders
+        - Displaying an ActivityIndicator
+        - Fetching Stored Orders
+        - Adding "Pull to Refresh"
+    * User Authentication 
+        - How Authentication Works
+        - Implementing a Basic Login Screen
+        - Adding User Signup
+        - Logging Users In
+        - Managing the Loading State & Errors
+        - Using the Token
+        - Mapping Orders to Users
+        - Using AsyncStorage
+        - Implementing "Auto Login and Auto Logout"
+        - Auto-Logout & Android (Warning)
+    * Native Device Features
+        - Planning the App
+        - Screen & Navigation Setup
+        - Redux & Adding Places
+        - Accessing the Device Camera
+        - Configuring the Camera Access
+        - Using the Picked Image
+        - Storing the Image on the Filesystem
+        - Changed SQLite Import
+        - Diving into SQLite for Permanent Data Storage
+        - Storing and Fetching Data in the Local Database
+        - Getting the User Location
+        - Showing a Map Preview of the Location
+        - Displaying an Interactive Map
+        - Making the Picked Location Saveable
+        - Storing Picked Places
+        - Updating the Location Screen When the Location Changes
+        - Displaying the Details Screen
+        - Running the App on iOS and Android
+    * Building Apps Without Expo
+        - Alternatives to Expo
+        - Building Apps with Just the React Native CLI
+        - Live Reload and RN CLI Apps
+        - Adding Native Modules to Non-Expo Apps
+        - Understanding Expo's "Bare Workflow"
+        - Ejecting from Expo's "Managed Workflow"
+    * Publishing React Native Apps
+        - Deployment Steps
+        - Configuring the App & Publishing
+        - Configuring Icons & The Splash Screen
+        - Working with Offline Asset Bundles
+        - Using "Over the Air Updates" (OTA Updates)
+        - Building the Apps for Deployment (iOS & Android)
+        - Publishing iOS Apps without Expo
+        - Publishing Android Apps without Expo
+        - Configuring Android Apps
+    * Updating to React Navigation 5+
+        - Preparing the Project
+        - More Information & Updating the Project Dependencies
+        - Moving from the "Registry-like" to the "Component-based" Navigation Config
+        - First Migration Steps
+        - Converting More Stack Navigators to the New Config
+        - Migrating the Drawer Navigation
+        - Replacing the "Switch" Navigator & Auth Flow
+        - Logout & Further Fixes/ Adjustments
+        - Extracting Screen Params
+    * Push Notifications
+        - Understanding Notifications
+        - Sending Local Notifications
+        - Getting Permissions
+        - Controlling How Notifications Are Displayed
+        - Reacting to Foreground and Background Notifications
+        - How Push Notifications Work
+        - Expo & Push Notifications
+        - Getting a Push Token
+        - Sending Push Notifications
+        - Using Expo's Push Server
+        - More on Push Tokens
+        - Push Notifications in non-Expo Managed Apps
