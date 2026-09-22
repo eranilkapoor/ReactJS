@@ -155,3 +155,58 @@ export default ThemedComponent;
 ### **Conclusion**
 
 Functional components in React are the preferred approach in modern development due to their simplicity, readability, and the powerful capabilities provided by React Hooks. With the ability to manage state and side effects, functional components are now as capable as class components but with a more concise and efficient syntax. As React continues to evolve, functional components will likely remain the primary way of building applications.
+
+---
+
+### **Best Practices**
+- Prefer functional components with hooks over class components for all new code, since they're simpler and align with React's current direction.
+- Keep functional components pure — avoid side effects (API calls, subscriptions, DOM manipulation) directly in the function body; put them inside `useEffect`.
+- Destructure props in the function signature for readability instead of repeatedly referencing a `props` object.
+- Use `React.memo` to prevent unnecessary re-renders of a functional component when its props haven't changed, similar to `PureComponent` for classes.
+- Extract reusable stateful logic into custom hooks rather than duplicating `useState`/`useEffect` patterns across multiple components.
+- Use `useMemo` and `useCallback` to memoize expensive calculations or stable function references, but only when profiling shows an actual performance benefit.
+
+---
+
+### **Interview Questions**
+
+**Q1. What is a functional component in React?**
+A functional component is a plain JavaScript function that accepts props as an argument and returns JSX describing the UI. It's the modern, preferred way to build React components, especially since Hooks were introduced.
+
+**Q2. Why don't functional components need the `this` keyword, unlike class components?**
+Functional components are just regular JavaScript functions, not class instances, so there's no instance context to reference. Props are received as a plain function argument, and state/side effects are managed through hooks instead of instance properties.
+
+**Q3. How do functional components manage state, since they have no `this.state`?**
+They use the `useState` hook, which returns a state value and a setter function, allowing the function to "remember" values across re-renders even though the function itself re-executes on every render.
+
+**Q4. How do functional components handle side effects like data fetching?**
+They use the `useEffect` hook, which runs a callback after render and can be controlled with a dependency array to determine when it re-runs.
+```jsx
+useEffect(() => {
+  fetch(url).then(res => res.json()).then(setData);
+}, [url]);
+```
+
+**Q5. How does a functional component consume values from React's Context API?**
+It uses the `useContext` hook, passing in the Context object, to read the nearest matching Provider's value directly without wrapping the component in a `Context.Consumer`.
+
+**Q6. What are the main advantages of functional components over class components?**
+They have simpler, more concise syntax, no `this` binding issues, are generally easier to test since they're just functions of props and hooks, and can fully manage state and side effects through hooks just like class components can with lifecycle methods.
+
+**Q7. Can a functional component have a value that persists across renders without causing a re-render when updated?**
+Yes, using the `useRef` hook. A ref's `.current` value persists between renders and can be mutated freely without triggering a re-render, unlike state.
+
+**Q8. What is the functional-component equivalent of `React.PureComponent`?**
+`React.memo` wraps a functional component and performs a shallow comparison of its props between renders, skipping the re-render if the props haven't changed — the same optimization `PureComponent` provides for class components.
+
+**Q9. Since a functional component's function body re-runs on every render, how does React avoid re-initializing state every time?**
+React's hook system (via `useState`/`useReducer`) stores state outside the function's own execution, associated with that specific component instance in the fiber tree, so calling `useState` on a subsequent render retrieves the existing value instead of resetting it.
+
+**Q10. In what situations might you still encounter class components in a legacy or existing codebase?**
+Class components may remain in older codebases predating React 16.8, in code relying on lifecycle methods with no direct hook equivalent at the time of writing (though most now have one), or in code using error boundaries, since those still require a class component with `componentDidCatch`/`getDerivedStateFromError`.
+
+**Q11. How would you memoize an expensive computation inside a functional component?**
+Use the `useMemo` hook, passing a function that computes the value and a dependency array; React only recomputes the value when a dependency changes.
+```jsx
+const total = useMemo(() => computeExpensiveTotal(items), [items]);
+```

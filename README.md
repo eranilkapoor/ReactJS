@@ -1,5 +1,59 @@
 # React JS
 
+A step-by-step, beginner-to-expert ReactJS (web) learning path. This folder assumes
+you're comfortable with the topics in [../JavaScript/README.md](../JavaScript/README.md);
+TypeScript typing for React specifically is covered in
+[../TypeScript/TypeScriptWithReact.md](../TypeScript/TypeScriptWithReact.md).
+
+> **Scope note:** This pass covers core ReactJS for the web only. The React Native
+> sections further down in the original curriculum outline below are kept for
+> reference but do not yet have written files in this folder.
+
+## Files in This Folder (Core Web React)
+
+### Fundamentals
+1. [Introduction to React.js](./Introduction.md)
+2. [Create React App / Project Setup](./CreateReactApp.md)
+3. [Components](./Components.md)
+4. [Functional Components](./FunctionalComponents.md)
+5. [Props](./Props.md)
+6. [State](./State.md)
+
+### Component Patterns
+7. [Component Lifecycle & Lifecycle Hooks](./LifeCycleHooks.md)
+8. [Hooks](./Hooks.md)
+9. [Pure Components](./PureComponents.md)
+10. [Higher Order Components (HOC)](./HigherOrderComponents(HOC).md)
+11. [Context API](./ContextApi.md)
+12. [Error Boundaries](./ErrorBoundaries.md)
+13. [Lazy Loading & Code Splitting](./LazyLoading.md)
+14. [Performance Optimization (memo, useMemo, useCallback)](./PerformanceOptimization.md)
+
+### Data & Forms
+15. [Forms](./Forms.md)
+16. [Working with Ajax (Fetch & Axios)](./Ajax.md)
+
+### Routing & State Management
+17. [Routing (React Router)](./Routing.md)
+18. [Redux](./Redux.md)
+19. [Redux Toolkit](./ReduxToolKit.md)
+
+### Rendering, Testing & Debugging
+20. [Server-Side Rendering & Next.js](./NextJS-SSR.md)
+21. [Testing React Apps (Jest & React Testing Library)](./Testing.md)
+22. [Debugging React Apps](./Debugging.md)
+
+## Prerequisites
+- [JavaScript fundamentals](../JavaScript/README.md)
+- HTML & CSS
+
+## Next Steps
+- [TypeScript with React](../TypeScript/TypeScriptWithReact.md) — type your components, hooks, and props
+
+---
+
+## Original Full Curriculum Outline (including React Native, for reference)
+
 ## Table Of Contents :-
 - Pre Requisites :-
     * HTML

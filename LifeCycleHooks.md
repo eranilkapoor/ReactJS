@@ -225,3 +225,60 @@ The `useEffect` hook combines the functionality of `componentDidMount`, `compone
 - In **class components**, life cycle methods like `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount` are used to handle side effects, state changes, and cleanup.
 - In **functional components**, the `useEffect` hook has taken the place of traditional life cycle methods, providing a more concise and flexible way to handle side effects and cleanups.
 - Understanding life cycle hooks allows you to optimize performance, handle side effects, and manage resources like timers or network requests efficiently.
+
+---
+
+### **Best Practices**
+- Always clean up side effects (timers, subscriptions, event listeners) in `componentWillUnmount` or the `useEffect` cleanup function to prevent memory leaks.
+- Avoid making API calls or heavy computations directly inside `render()`; use `componentDidMount`/`componentDidUpdate` (or `useEffect`) instead.
+- Use `shouldComponentUpdate`, `React.PureComponent`, or `React.memo` to avoid unnecessary re-renders in performance-critical components.
+- Keep `useEffect` callbacks focused — split unrelated side effects into separate `useEffect` calls with their own dependency arrays instead of one large effect.
+- Never call `setState` unconditionally inside `componentWillUpdate`/`componentDidUpdate` without a guard, since it can trigger an infinite render loop.
+- Prefer functional components with `useEffect` over class life cycle methods for new code, since it consolidates related logic more clearly by concern.
+
+---
+
+### **Interview Questions**
+
+**Q1. What are the three main phases of a React component's life cycle?**
+The three phases are Mounting (the component is created and inserted into the DOM), Updating (the component re-renders due to changes in props or state), and Unmounting (the component is removed from the DOM).
+
+**Q2. What is the purpose of `componentDidMount`, and what is it commonly used for?**
+`componentDidMount` is called once, immediately after a component is first rendered and inserted into the DOM. It's commonly used for making API calls, setting up subscriptions, or interacting with the DOM directly.
+
+**Q3. What is the purpose of `componentWillUnmount`, and why is it important?**
+`componentWillUnmount` is called just before a component is removed from the DOM. It's essential for cleanup tasks like clearing timers, canceling network requests, or removing event listeners to prevent memory leaks.
+
+**Q4. What does `shouldComponentUpdate` do, and how can it be used for performance optimization?**
+`shouldComponentUpdate(nextProps, nextState)` lets you control whether a component re-renders by returning `true` or `false`. Returning `false` when props/state haven't meaningfully changed skips an unnecessary render, improving performance.
+
+**Q5. What is `getDerivedStateFromProps`, and why is it a static method?**
+`getDerivedStateFromProps(props, state)` is called before every render (both initial and updates) to let a component update its state based on changes in props. It's static so it cannot access `this`, which prevents it from causing side effects and keeps it a pure function of its inputs.
+
+**Q6. What is `getSnapshotBeforeUpdate` used for?**
+It's called right before the DOM is updated with the latest render's changes, letting you capture information from the current DOM, such as scroll position, before it potentially changes. The value it returns is passed as the third argument to `componentDidUpdate`.
+
+**Q7. How does the `useEffect` hook relate to class component life cycle methods?**
+`useEffect` combines the behavior of `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount` into a single API. Which behavior it mimics depends on its dependency array and whether it returns a cleanup function.
+
+**Q8. How do you replicate `componentDidMount` behavior using `useEffect`?**
+Pass an empty dependency array `[]` so the effect only runs once, right after the component's first render.
+```jsx
+useEffect(() => {
+  console.log('Component mounted');
+}, []);
+```
+
+**Q9. How do you replicate `componentWillUnmount` behavior using `useEffect`?**
+Return a cleanup function from the effect; React calls it when the component unmounts (and before the effect re-runs on subsequent updates).
+```jsx
+useEffect(() => {
+  return () => console.log('Cleanup');
+}, []);
+```
+
+**Q10. What is the difference between `componentDidUpdate` and a `useEffect` with a dependency array?**
+`componentDidUpdate(prevProps, prevState)` runs after every update and gives you direct access to the previous props/state for comparison. A `useEffect` with a specific dependency array achieves a similar effect by only re-running when one of the listed values changes, without manually comparing previous and current values.
+
+**Q11. Why can't you use life cycle methods like `componentDidMount` inside a functional component?**
+Life cycle methods are part of the class component API tied to `React.Component` instances; functional components have no instance or `this` context to attach them to. Instead, functional components use hooks like `useEffect` to achieve equivalent behavior.

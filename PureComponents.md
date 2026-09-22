@@ -195,3 +195,58 @@ In this example:
 - **Pure Components** help optimize React applications by reducing unnecessary re-renders. They perform shallow comparisons of props and state and only re-render when necessary.
 - They work best with **immutable data** and simple props and state structures.
 - When used appropriately, pure components can significantly improve performance, especially in large and complex applications.
+
+---
+
+### **Best Practices**
+- Extend `React.PureComponent` for simple, presentational class components whose props and state are primitives or shallowly comparable.
+- Keep props and state immutable; create new objects or arrays with the spread operator instead of mutating existing ones directly.
+- Avoid passing new object, array, or function literals as props on every render, since a shallow comparison will always treat them as changed references.
+- For functional components, use `React.memo` as the equivalent optimization to `PureComponent`.
+- Combine with `useMemo`/`useCallback` (or memoized selectors) to keep object and function prop references stable across renders.
+- Don't rely on pure components for deeply nested data structures; implement a custom `shouldComponentUpdate` or a deep-compare utility if a true deep comparison is required.
+
+---
+
+### **Interview Questions**
+
+**Q1. What is a `React.PureComponent`, and how does it differ from `React.Component`?**
+`React.PureComponent` is identical to `React.Component` except it automatically implements `shouldComponentUpdate()` with a shallow comparison of props and state. `React.Component` re-renders whenever `setState` is called or new props are passed, regardless of whether the values actually changed.
+
+**Q2. What does "shallow comparison" mean in the context of `PureComponent`?**
+A shallow comparison checks whether primitive values are equal and whether object/array values reference the exact same object in memory — it does not recursively compare the contents of nested objects or arrays.
+```jsx
+{ name: 'Alice' } === { name: 'Alice' } // false, different references
+```
+
+**Q3. Why might a `PureComponent` still re-render unnecessarily when passed an object prop?**
+If a new object or array literal is created on every parent render (e.g., `<Person name={{ name: 'John' }} />`), its reference changes each time even if its contents are identical, so the shallow comparison sees it as "changed" and re-renders anyway.
+
+**Q4. What is the functional-component equivalent of `PureComponent`, and how do you use it?**
+`React.memo` wraps a functional component to give it the same shallow-comparison optimization as `PureComponent`.
+```jsx
+const Greeting = React.memo(function Greeting({ name }) {
+  return <h1>Hello, {name}</h1>;
+});
+```
+
+**Q5. What lifecycle method does `PureComponent` implement automatically, and what does it return?**
+It automatically implements `shouldComponentUpdate(nextProps, nextState)`, returning `false` (skipping re-render) when a shallow comparison finds no differences in props or state, and `true` otherwise.
+
+**Q6. Why is mutating state or props directly problematic when using `PureComponent`?**
+Because the shallow comparison relies on reference equality, mutating an object or array in place keeps the same reference, so `PureComponent` won't detect the change and will incorrectly skip a needed re-render, leading to stale UI.
+
+**Q7. In what situations should you avoid using `PureComponent`?**
+Avoid it when props or state involve deeply nested objects/arrays that mutate in place, when props change on every render as new object/function literals (defeating the optimization), or when you specifically need the component to always re-render regardless of shallow equality.
+
+**Q8. What are the main advantages of pure/stateless components besides re-render optimization?**
+They avoid the overhead of constructors, `this` binding, and lifecycle complexity; they emphasize presentation over business logic; and they encourage building smaller, self-contained, and easily reusable components.
+
+**Q9. How would you achieve a deep comparison instead of the default shallow one for a performance-sensitive component?**
+You can manually implement `shouldComponentUpdate` (extending `React.Component` instead of `PureComponent`) with a custom deep-equality check, or use `React.memo` with a custom comparison function as its second argument.
+
+**Q10. What are the disadvantages of relying heavily on pure/stateless components?**
+They lack life-cycle callback hooks (in the simplest stateless form), have limited functionality since they can't hold internal state or complex logic on their own, and shallow comparison alone can't reliably optimize components with complex, frequently-recreated data structures.
+
+**Q11. Does using `PureComponent` guarantee better performance in every case?**
+No. The shallow comparison itself has a small cost on every render, so for components that would re-render anyway (props genuinely change every time) or that are cheap to render, `PureComponent` can add overhead without meaningful benefit.

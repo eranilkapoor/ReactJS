@@ -160,3 +160,53 @@ export default App;
 5. **Error Handling**: Use error boundaries to gracefully handle issues with lazy-loaded components.
 
 Lazy loading is a powerful tool to optimize your React applications, especially for large-scale projects with multiple routes and features. It ensures better performance and a smoother user experience.
+
+---
+
+### **Best Practices**
+- Wrap every `React.lazy` component in a `Suspense` boundary with a meaningful, non-jarring fallback UI.
+- Pair lazy-loaded components with an Error Boundary so a failed chunk load (e.g., due to a flaky network) shows a recoverable message instead of crashing the app.
+- Lazy-load at the route level first — it gives the largest bundle-size reduction for the least amount of added complexity.
+- Avoid lazy-loading very small components; the overhead of an extra network request can outweigh the savings from a smaller initial bundle.
+- Preload likely-next chunks (e.g., on link hover) to hide loading latency before the user actually navigates.
+- For server-side rendering, don't rely on `React.lazy` alone — use a framework-provided solution (e.g., Next.js `dynamic`) or a library like `loadable-components`.
+
+---
+
+### **Interview Questions**
+
+**Q1. What does `React.lazy` do?**
+It lets you define a component whose code is loaded via a dynamic `import()` only when the component is actually rendered for the first time, instead of being included in the main bundle.
+
+**Q2. Why is `Suspense` required when using `React.lazy`?**
+Because loading the component's code is asynchronous, React needs a way to render something while it waits. `Suspense` catches the "loading" state of the lazy component and renders its `fallback` UI until the import resolves.
+
+**Q3. What happens if a lazy-loaded component fails to load, e.g., due to a network error?**
+The dynamic import's promise rejects, which throws an error during rendering. `Suspense` alone doesn't handle this — an Error Boundary must wrap the `Suspense` block to catch the failure and show a fallback instead of crashing the app.
+
+**Q4. How does `React.lazy` achieve code-splitting under the hood?**
+`React.lazy(() => import("./Component"))` uses the dynamic `import()` syntax, which bundlers like Webpack recognize as a split point, generating a separate chunk file for that component that's fetched over the network on demand.
+
+**Q5. Can `React.lazy` be used directly with a named export?**
+No — `React.lazy` expects the imported module's `default` export to be a component. To lazy-load a named export, you re-export it as default from a small wrapper module, or map it manually inside the `import()` promise chain.
+
+**Q6. How would you lazy-load routes, and why is this beneficial?**
+Wrap each route's component in `React.lazy(() => import("./Page"))` and place the `<Routes>` inside a single `<Suspense>`. This means users downloading the app only fetch the JavaScript for the route they're visiting, shrinking the initial bundle significantly.
+
+**Q7. What's the difference between `React.lazy` and a plain dynamic `import()`?**
+A plain `import()` can be used for any JavaScript module and just returns a promise resolving to that module. `React.lazy` is a thin wrapper specifically for React components — it integrates with `Suspense` so React knows to show a fallback while that import resolves.
+
+**Q8. Can multiple lazy components share a single `Suspense` boundary, and what's the trade-off versus separate boundaries?**
+Yes — one `Suspense` can wrap several lazy components, showing one fallback until all of them finish loading. Separate `Suspense` boundaries per component let each show its own fallback and load independently, giving more granular loading feedback at the cost of more markup.
+
+**Q9. Is `React.lazy` supported for server-side rendering out of the box?**
+No, plain `React.lazy` with `Suspense` for code-splitting is not fully supported in traditional SSR without additional tooling; frameworks like Next.js provide their own `dynamic()` import mechanism, or libraries like `loadable-components` are used instead.
+
+**Q10. Why is an Error Boundary recommended alongside lazy loading?**
+Because a failed dynamic import (e.g., from a network failure or a stale deployed chunk after a new release) throws an error during render, which would otherwise crash the whole app; an Error Boundary contains that failure and shows a fallback UI.
+
+**Q11. What fallback strategies help avoid layout shift while a lazy component loads?**
+Using a skeleton screen or placeholder sized similarly to the eventual content, rather than a generic spinner or blank space, keeps the layout stable and reduces perceived jank when the real component mounts.
+
+**Q12. How does lazy loading affect metrics like Time to Interactive and initial bundle size?**
+By deferring the download and parsing of code that isn't needed immediately, it shrinks the initial JavaScript bundle the browser must fetch and execute, which generally reduces Time to Interactive for the first view, at the cost of a small delay when the deferred part is later needed.

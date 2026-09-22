@@ -215,3 +215,63 @@ You should use state when:
 - You can manage state in **functional components** using the `useState` hook or in **class components** using `this.state` and `this.setState()`.
 - State is **mutable**, and React ensures the UI is kept up-to-date with state changes.
 - **State** and **props** work together in React to make components dynamic and interactive.
+
+---
+
+### **Best Practices**
+- Never mutate state directly (e.g., `state.count++`); always use `setState`/the `useState` setter to create a new value so React can detect the change.
+- Use the functional updater form (`setCount(prev => prev + 1)`) whenever the new state depends on the previous state, to avoid stale-value bugs.
+- Keep state as minimal and normalized as possible — derive computed values from existing state/props during render instead of storing them separately.
+- Split unrelated pieces of data into separate `useState` calls (or use `useReducer`) rather than combining everything into one large state object.
+- Lift state up to the closest common parent when multiple components need to share or stay in sync with the same data.
+- Initialize state with the correct shape and type up front (e.g., empty array `[]` for a list) to avoid conditional checks scattered throughout the component.
+- Avoid storing values in state that can be computed directly from props or other state during rendering.
+
+---
+
+### **Interview Questions**
+
+**Q1. What is state in React, and how does it differ from props?**
+State is data that a component owns and manages internally, and which can change over time in response to user actions or events. Unlike props, which are passed down from a parent and are read-only, state is mutable and controlled entirely by the component that declares it.
+
+**Q2. How do you declare and update state in a functional component?**
+You use the `useState` hook, which returns the current state value and a setter function used to update it.
+```jsx
+const [count, setCount] = useState(0);
+setCount(count + 1);
+```
+
+**Q3. How is state declared and updated in a class component?**
+State is initialized as an object in the constructor (`this.state = { count: 0 }`) and updated using `this.setState()`, which merges the provided object into the existing state rather than replacing it entirely.
+
+**Q4. Why would you use the functional updater form of a state setter, like `setCount(prevCount => prevCount + 1)`, instead of `setCount(count + 1)`?**
+Because state updates can be batched and asynchronous, `count` inside the closure might be stale by the time the update actually applies. Using the function form guarantees you're always operating on the most recent state value.
+
+**Q5. What triggers a component to re-render in React?**
+A component re-renders when its state changes (via `setState`/`useState` setter) or when it receives new props from its parent. React skips re-rendering if the new state or props are shallowly equal to the previous ones in optimized scenarios (e.g., with `React.memo` or `PureComponent`).
+
+**Q6. What is the key difference between `this.setState()` in class components and the setter returned by `useState`?**
+`this.setState()` shallow-merges the provided object into the existing state object, while the `useState` setter replaces the corresponding state variable entirely rather than merging it — so updating one field of an object state requires manually spreading the previous state.
+
+**Q7. Can state be initialized with complex data types like arrays or objects?**
+Yes, state can hold any data type, including primitives, arrays, and objects.
+```jsx
+const [user, setUser] = useState({ name: 'Alice', age: 25 });
+```
+
+**Q8. What does it mean to "lift state up" in React, and when would you do it?**
+Lifting state up means moving state from a child component to their closest common parent so that multiple components can share and stay synchronized with the same data. It's done when sibling components need access to the same changing value.
+
+**Q9. Why is it considered a mistake to derive and store a value in state when it can be computed from existing props or state?**
+Storing a derived value in state creates a second source of truth that can drift out of sync with the original data it was computed from. It's safer and simpler to compute the derived value directly during render.
+
+**Q10. What are some common real-world use cases for state in a React component?**
+Typical use cases include tracking form/user input, toggling the visibility of UI elements like modals or dropdowns, storing data fetched from an API, and managing animation or transition states.
+
+**Q11. How can you run code in response to a specific piece of state changing?**
+Use the `useEffect` hook with that state variable in its dependency array; the effect will run whenever the specified state value changes.
+```jsx
+useEffect(() => {
+  console.log("count changed");
+}, [count]);
+```

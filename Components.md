@@ -348,3 +348,57 @@ With the introduction of **React Hooks**, functional components can now manage s
 - Stateless components are ideal for simple, reusable UI elements.
 - Stateful components are suited for managing dynamic behavior and complex interactions.
 - With the advent of React Hooks, the distinction has become less rigid, enabling functional components to handle both stateless and stateful use cases efficiently.
+
+---
+
+### **Best Practices**
+- Give each component a single, clear responsibility rather than letting it handle unrelated pieces of UI or logic.
+- Prefer functional components with hooks over class components for new code, since they're more concise and easier to test.
+- Separate presentational (UI-focused) components from container (logic-focused) components to keep rendering and business logic decoupled.
+- Favor composition over inheritance when building complex UIs — combine small components rather than extending base classes.
+- Keep component trees shallow where possible, and use `props.children` to make wrapper components flexible and reusable.
+- For sibling or deeply nested communication, use a shared parent, Context API, or a state management library instead of passing callbacks through many layers.
+- Use `React.createRoot` (React 18+) rather than the legacy `ReactDOM.render` for mounting the root component.
+
+---
+
+### **Interview Questions**
+
+**Q1. What is a component in React, and why are components considered the building blocks of a React application?**
+A component is a reusable, independent piece of UI that encapsulates its own structure, logic, and behavior. Applications are built by composing many small components together, which promotes reusability, modularity, and easier maintenance.
+
+**Q2. What is the difference between a functional component and a class component?**
+A functional component is a plain JavaScript function that returns JSX and can use hooks for state and side effects. A class component extends `React.Component`, defines a `render()` method, and manages state via `this.state`/`this.setState()`. Functional components with hooks are the modern preferred approach.
+
+**Q3. How do you render a React component into the DOM in React 18?**
+You use `ReactDOM.createRoot(container).render(<Component />)`, where `container` is a DOM node (commonly `document.getElementById('root')`). This replaces the legacy `ReactDOM.render()` API used before React 18.
+
+**Q4. What is the difference between presentational and container components?**
+Presentational components focus on how things look, receiving data purely through props and rendering UI without managing state or business logic (e.g., a `Button`). Container components focus on how things work, managing state and logic and passing data down to presentational components (e.g., a `UserListContainer`).
+
+**Q5. How does data flow from a parent component to a child component, and vice versa?**
+Data flows from parent to child via props, since React follows a unidirectional data flow. For a child to communicate back to a parent, the parent passes a callback function as a prop, which the child invokes with data when needed.
+```jsx
+function Parent() {
+  const handleMessage = (msg) => console.log(msg);
+  return <Child sendMessage={handleMessage} />;
+}
+```
+
+**Q6. How do sibling components typically communicate with each other in React?**
+Since React has no direct sibling-to-sibling data channel, siblings usually communicate by lifting shared state up to their closest common parent, or by using the Context API or a state management library like Redux for more complex cases.
+
+**Q7. What is the difference between a stateless and a stateful component?**
+A stateless component relies solely on the props it receives and does not manage any internal data, making it simpler and easier to test. A stateful component maintains its own state (via `useState` or `this.state`) and updates its UI dynamically as that state changes.
+
+**Q8. What is Atomic Design, and how does it apply to organizing React components?**
+Atomic Design is a methodology that structures UI into a hierarchy: atoms (smallest elements like buttons), molecules (small groups of atoms), organisms (larger sections), templates (page layouts), and pages (final UI). It gives teams a consistent vocabulary for organizing and scaling component libraries.
+
+**Q9. Why is "composition over inheritance" emphasized in React component design?**
+React components are designed to be composed together (nesting and combining) rather than extended through class inheritance hierarchies. Composition keeps components decoupled and flexible, letting you reuse behavior by wrapping or nesting components instead of creating rigid class hierarchies.
+
+**Q10. Has the introduction of React Hooks changed the distinction between stateless and stateful components?**
+Yes. Before hooks, only class components could manage state, so functional components were typically stateless. With hooks like `useState` and `useEffect`, functional components can now be either stateless or stateful, blurring the previously strict line between the two.
+
+**Q11. What does it mean for a component to follow the "Single Responsibility" principle?**
+It means a component should be focused on doing one thing well — for example, a `Header` component should only manage navigation display, not also handle data fetching or business logic unrelated to its purpose. This keeps components easier to understand, test, and reuse.

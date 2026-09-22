@@ -889,3 +889,62 @@ function App() {
 ### **Conclusion**
 
 React Fragments are a lightweight and efficient way to group multiple elements without adding extra nodes to the DOM. They make your component's structure cleaner, improve performance, and ensure semantic HTML. By using either `<React.Fragment>` or the shorthand `<>...</>`, developers can create better-optimized and readable React applications.
+
+---
+
+### **Best Practices**
+- Use `npx create-react-app` (or a modern alternative like Vite) to scaffold new projects instead of manually configuring Webpack and Babel.
+- Keep `package-lock.json` committed to source control to guarantee reproducible installs across environments and machines.
+- Separate `dependencies` from `devDependencies` in `package.json` so production builds don't ship testing or build-only tools.
+- Prefer the JSX shorthand fragment `<>...</>` unless you need to pass a `key`, in which case use the explicit `<React.Fragment key={...}>` form.
+- Always wrap JavaScript expressions in curly braces `{}` inside JSX, and capitalize custom component names so React can distinguish them from native HTML tags.
+- Run rarely used CLI tools with `npx <package>` instead of installing them globally, to avoid version conflicts and namespace pollution.
+- Consider Server-Side Rendering (SSR) or Static Site Generation (SSG) early in a project if SEO is a requirement for your SPA.
+
+---
+
+### **Interview Questions**
+
+**Q1. What is React.js and what problem does it solve?**
+React.js is an open-source JavaScript library for building user interfaces, especially single-page applications. It solves the problem of efficiently updating the UI in response to changing data by using a component-based architecture and a Virtual DOM, which minimizes direct manipulation of the real DOM.
+
+**Q2. What is a Single Page Application (SPA), and how does it differ from a Multi-Page Application (MPA)?**
+An SPA loads a single HTML page and dynamically updates content using JavaScript without full page reloads, whereas an MPA requests and renders a brand-new HTML page from the server for every navigation. SPAs feel faster after the initial load but typically need extra work (SSR/SSG) to be SEO-friendly.
+
+**Q3. What is NPM, and what role does `package.json` play in a project?**
+NPM (Node Package Manager) is the default package manager for Node.js, used to install, manage, and share JavaScript packages. `package.json` stores project metadata, scripts, and the list of dependencies and devDependencies needed to reproduce the project's environment.
+
+**Q4. What is the difference between `dependencies` and `devDependencies` in `package.json`?**
+`dependencies` are packages required for the application to run in production, such as `react`, while `devDependencies` are only needed during development, such as testing frameworks or build tools like `jest`. Running an install with a production flag skips `devDependencies`.
+
+**Q5. What is NPX, and how does it differ from NPM?**
+NPX is a package runner bundled with NPM that executes a package's binary directly, downloading it temporarily if it isn't installed locally or globally. NPM is primarily for installing and managing packages, while NPX is for running them on demand, which is why `npx create-react-app my-app` doesn't require a global install.
+
+**Q6. What is JSX, and why can't browsers run it directly?**
+JSX (JavaScript XML) is a syntax extension that lets you write HTML-like markup inside JavaScript. Browsers cannot execute JSX directly because it isn't valid JavaScript; it must be transpiled, usually by Babel, into `React.createElement()` calls before it can run.
+```jsx
+const element = <h1>Hi</h1>;
+// becomes:
+const element = React.createElement("h1", null, "Hi");
+```
+
+**Q7. What role does Babel play in a React application?**
+Babel is a JavaScript compiler that transpiles modern JavaScript and JSX syntax into browser-compatible JavaScript, so that features like JSX and newer ES6+ syntax work consistently across all browsers.
+
+**Q8. What are the main restrictions JSX imposes on how you write markup?**
+JSX requires a single root element (or a Fragment) per return statement, custom component names must start with an uppercase letter, JavaScript expressions must be wrapped in `{}`, and attributes use camelCase names like `className` and `htmlFor` instead of `class` and `for`.
+
+**Q9. Why would you use a React Fragment instead of a wrapping `<div>`?**
+A Fragment lets a component return multiple sibling elements without adding an extra node to the DOM. This avoids unnecessary markup that could break CSS layouts, such as Flexbox or Grid, while still satisfying JSX's single-root-element rule.
+
+**Q10. What is the shorthand syntax for React Fragments, and when can't you use it?**
+The shorthand is `<>...</>`. It cannot be used when you need to pass a `key`, for example when rendering a list of Fragments, in which case you must use the explicit `<React.Fragment key={...}>` form.
+
+**Q11. What is the difference between `npm install <package>` and `npm install -g <package>`?**
+`npm install <package>` installs the package locally into the project's `node_modules` folder and records it in `package.json`, while `npm install -g <package>` installs it globally on the system, making its CLI available from any directory.
+
+**Q12. What are some disadvantages of Single Page Applications, and how can they be mitigated?**
+SPAs can suffer from weaker default SEO, slower initial load since more JavaScript is downloaded upfront, and reliance on JavaScript being enabled in the browser. These can be mitigated with Server-Side Rendering, Static Site Generation, code-splitting, and lazy loading.
+
+**Q13. Why is `package-lock.json` important, and what happens if it's deleted or ignored?**
+`package-lock.json` locks every dependency (including nested sub-dependencies) to an exact resolved version, ensuring that `npm install` produces an identical `node_modules` tree on any machine. Without it, different installs could resolve slightly different compatible versions, leading to inconsistent behavior across environments.

@@ -171,3 +171,61 @@ This ensures that the component only re-renders if its props change, optimizing 
 Higher Order Components (HOCs) are a powerful pattern for reusing logic and enhancing components in React. They allow you to separate concerns, improve code readability, and optimize performance by applying reusable behaviors like authentication checks, data fetching, or event tracking.
 
 While HOCs offer significant benefits for code reuse and abstraction, it's important to handle potential issues like prop collisions and ensure clarity in the component tree. In modern React, HOCs are often used in combination with hooks and context to manage side effects and share logic across components.
+
+---
+
+### **Best Practices**
+- Never mutate the `WrappedComponent` inside an HOC — always compose by returning a new component.
+- Pass through unrelated props with `{...props}` so the HOC stays transparent to the wrapped component's API.
+- Copy non-React static methods from the wrapped component (e.g., with `hoist-non-react-statics`) since they aren't copied automatically.
+- Use `React.forwardRef` when the wrapped component needs to expose a ref to its DOM node or instance.
+- Set a clear `displayName` (e.g., `withAuth(Dashboard)`) so wrapped components are easy to identify in React DevTools.
+- Prefer custom hooks for pure logic reuse; reach for an HOC specifically when you need to wrap or conditionally replace what gets rendered.
+
+---
+
+### **Interview Questions**
+
+**Q1. What is a Higher Order Component in React?**
+An HOC is a function that takes a component as an argument and returns a new component that wraps it, adding extra props, behavior, or conditional rendering without modifying the original component's code.
+
+**Q2. How is an HOC different from a regular component?**
+A regular component returns JSX directly. An HOC is a function that *returns* a component — it operates on components as its input and output, similar to how a higher-order function operates on functions.
+
+**Q3. Walk through how the `withAuth` HOC in this file works.**
+`withAuth` takes a `WrappedComponent`, checks an `isAuthenticated` flag, and either renders a "please log in" message or renders `<WrappedComponent {...props} />` if the user is authenticated — letting any component gain an auth guard without duplicating that check.
+```jsx
+function withAuth(WrappedComponent) {
+  return function EnhancedComponent(props) {
+    const isAuthenticated = checkAuth();
+    return isAuthenticated ? <WrappedComponent {...props} /> : <h1>Please log in</h1>;
+  };
+}
+```
+
+**Q4. What is "props collision" with HOCs and how do you avoid it?**
+It happens when two or more HOCs inject a prop with the same name, causing one to silently overwrite the other. It's avoided by namespacing injected props clearly or documenting/coordinating what each HOC injects.
+
+**Q5. Why shouldn't you apply an HOC inside a component's `render()` method?**
+Calling the HOC inside `render` creates a brand-new wrapped component on every render, which React treats as a different component type — this causes the entire subtree to unmount and remount instead of updating, losing state and hurting performance.
+
+**Q6. How do HOCs handle static methods defined on the wrapped component?**
+They don't copy them automatically, since the HOC returns a completely new component. Static methods must be manually copied over, typically using a helper like `hoist-non-react-statics`.
+
+**Q7. How do refs behave with HOCs, and how do you fix ref issues?**
+A `ref` attached to the HOC-wrapped component attaches to the outer wrapper, not the inner component, by default. `React.forwardRef` is used inside the HOC to forward the ref through to the wrapped component.
+
+**Q8. What's the difference between the HOC pattern and the Render Props pattern?**
+Both share logic between components, but an HOC wraps a component ahead of time by returning a new component, while Render Props share logic by passing a function as a prop (or `children`) that the consumer calls to render UI, giving more explicit control at the call site.
+
+**Q9. When would you choose a custom Hook over an HOC?**
+Choose a Hook when you just need to reuse stateful logic (like a mouse position or fetch state) inside a function component without changing what gets rendered. Choose an HOC when you need to wrap the rendered output itself, such as conditionally rendering a fallback (auth gating) or injecting an Error Boundary.
+
+**Q10. How would you compose multiple HOCs together?**
+By nesting the calls, e.g. `withAuth(withLogging(Component))`, or using a compose utility (like `compose` from Redux or lodash) to apply them left-to-right in a more readable way: `compose(withAuth, withLogging)(Component)`.
+
+**Q11. Why is a naming convention like `withXxx` recommended for HOCs?**
+It signals at a glance that the function returns an enhanced component rather than being a plain component or utility function, making intent clear to other developers reading the code and in the component tree shown by React DevTools.
+
+**Q12. Can an HOC change what type of output gets rendered based on a condition, as `withAuth` does?**
+Yes — since the HOC fully controls the returned component's render logic, it can conditionally render the wrapped component, a fallback UI, a loading state, or nothing at all, based on props, external state, or context.
