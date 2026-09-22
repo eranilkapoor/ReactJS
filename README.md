@@ -49,6 +49,7 @@ TypeScript typing for React specifically is covered in
 
 ## Next Steps
 - [TypeScript with React](../TypeScript/TypeScriptWithReact.md) — type your components, hooks, and props
+- [TechnicalArchitect](../TechnicalArchitect/README.md) — once comfortable here, section B (Frontend Architecture) covers advanced hooks patterns, micro-frontends, and Next.js at architect level
 
 ---
 
